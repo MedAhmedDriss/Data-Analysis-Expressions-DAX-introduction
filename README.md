@@ -75,23 +75,25 @@ DAX is often used to create measures, which are used to aggregate data in a tabl
 DAX includes a set of functions that enable time-based analysis, such as calculating year-to-date, quarter-to-date, and month-to-date totals, comparing values across different time periods, and calculating moving averages.
 
 * Creating a measure to calculate year-to-date sales: 
-  ```dax
+
+ ```dax
 YTD Sales = TOTALYTD([SalesAmount], 'Date'[Date])
  ```
 * Creating a measure to calculate the percentage change in sales compared to the same period last year: 
  ```dax
-YoY Sales Growth = ([TotalSales] - CALCULATE([TotalSales], SAMEPERIODLASTYEAR('Date'[Date]))) / CALCULATE([TotalSales], SAMEPERIODLASTYEAR('Date'[Date]))
+YoY Sales Growth = ([TotalSales] - CALCULATE([TotalSales], SAMEPERIODLASTYEAR('Date'[Date]))) / 
+CALCULATE([TotalSales], SAMEPERIODLASTYEAR('Date'[Date]))
  ```
 * Creating a measure to calculate the year-over-year change in sales:
  ```dax
 YoYSalesChange = DIVIDE([TotalSales], CALCULATE([TotalSales], SAMEPERIODLASTYEAR('Date'[Date])))
  ```
 * Creating a measure to calculate the running total of sales from the start of the year:
- ```
+ ```dax
 RunningTotalSales = CALCULATE([TotalSales], DATESYTD('Date'[Date]))
  ```
 * Creating a measure to calculate the quarter-to-date sales:
- ```
+ ```dax
 QTDTotalSales = CALCULATE([TotalSales], DATESQTD('Date'[Date]))
  ```
 
@@ -112,7 +114,7 @@ MaxSalesAmount = MAXX(FILTER('Sales', [ProductCategory] = "Clothing"), [SalesAmo
 RegionSales = CALCULATE([TotalSales], 'Sales'[Region] = "North")
  ```
 * Creating a measure to calculate the average sales per customer in a specific region:
-  ```dax
+ ```dax
 AvgSalesPerCustomer = DIVIDE([TotalSales], DISTINCTCOUNT('Sales'[CustomerID]), 'Sales'[Region] = "North")
  ```
 * Creating a measure to calculate the sales rank of each product within its category:
