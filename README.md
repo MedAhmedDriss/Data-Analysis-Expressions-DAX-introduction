@@ -137,7 +137,10 @@ SalesRank = RANKX(FILTER('Product', 'Product'[Category] = EARLIER('Product'[Cate
 ```dax
 Top10Sales = CALCULATE([TotalSales], TOPN(10, ALL('Product'), [TotalSales]))
 ```
-
+* Creating a measure to calculate the total sales for the bottom 5 products by sales amount:
+```dax
+Bottom5Sales = CALCULATE([TotalSales], BOTTOMN(5, ALL('Product'), [TotalSales]))
+```
 
 
 
@@ -165,6 +168,10 @@ TotalQuantity = SUMX('OrderItem', 'OrderItem'[Quantity])
 * Creating a calculated table to filter the sales with negative profit: 
 ```dax
 NegativeProfitSales = FILTER('Sales', [Profit] < 0)
+```
+* Creating a hierarchy to group products by category and subcategory: 
+```dax
+ProductHierarchy = HIERARCHY('Product'[Category], 'Product'[Subcategory])
 ```
 
 
