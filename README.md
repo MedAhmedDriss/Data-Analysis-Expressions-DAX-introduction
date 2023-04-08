@@ -66,7 +66,10 @@ DAX is often used to create measures, which are used to aggregate data in a tabl
  SalesVariance = VAR AvgSales = AVERAGE('Sales'[SalesAmount])
                   RETURN SUMX('Sales', POWER('Sales'[SalesAmount] - AvgSales, 2)) / COUNTROWS('Sales')`
  ```
-
+ * Creating a measure to calculate the total sales for the top 5 customers:
+  ```dax
+ Top5CustomerSales = CALCULATE([TotalSales], TOPN(5, ALL('Customer'), [TotalSales]))
+ ```
 
 
 
@@ -96,6 +99,15 @@ RunningTotalSales = CALCULATE([TotalSales], DATESYTD('Date'[Date]))
  ```dax
 QTDTotalSales = CALCULATE([TotalSales], DATESQTD('Date'[Date]))
  ```
+* Creating a measure to calculate the moving average of sales for the last 6 months:
+ ```dax
+MovingAvgSales6M = AVERAGEX(DATESYTD('Date'[Date], "12/31"), [TotalSales], 6)
+ ```
+* Creating a measure to calculate the quarter-over-quarter change in sales:
+ ```dax
+QoQSalesChange = DIVIDE([TotalSales], CALCULATE([TotalSales], DATESQTD('Date'[Date], -1)))
+ ```
+
 
 
 
