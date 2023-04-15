@@ -35,6 +35,21 @@ DAX can be used to create calculated columns in a table based on the values of o
  ```dax
  SalesPercentage = 'Sales'[SalesAmount] / CALCULATE(SUM('Sales'[SalesAmount]), ALL('Product'))
  ```
+ 
+ * Creating a column to categorize customers based on their total purchases:
+ ```dax
+ CustomerCategory = IF([TotalSales] > 10000, "High Value", "Low Value")
+ ```
+ 
+ * Creating a column to calculate the moving average of sales for each product:
+
+ ```dax
+ MovingAvg = AVERAGE('Sales'[SalesAmount]) 
+    + CALCULATE(AVERAGE('Sales'[SalesAmount]), 
+        FILTER('Sales', 'Sales'[ProductID] = EARLIER('Sales'[ProductID])),
+        DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -30, DAY))
+ ```
+ In this example, the calculated column uses the EARLIER function to refer to the current row's product ID value, and the DATESINPERIOD function to calculate the moving average for the last 30 days.
 
 
 
